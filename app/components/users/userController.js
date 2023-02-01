@@ -2,16 +2,12 @@
 const User = require('./userModel')
 const responseHelper = require('../../helpers/responseHelper')
 const bcrypt = require('bcrypt')
-// eslint-disable-next-line no-unused-vars
 const createHttpError = require('http-errors')
-// eslint-disable-next-line no-unused-vars
 const jwt = require('jsonwebtoken')
-const validatePermission = require('./helper/validatePermission')
 
 const register = (req, res) => {
   const data = req.body
-  data.id_rol = 1
-  data.id_company = 1
+  data.rol = 'admin'
   data.password = bcrypt.hashSync(data.password, 10)
   const user = new User(data)
   user.save()
@@ -21,6 +17,7 @@ const register = (req, res) => {
 
 const login = (req, res) => {
   const { email, password } = req.body
+
   User.findOne({ email })
     .then(responseLogin => {
       if (responseLogin) {
@@ -42,33 +39,23 @@ const login = (req, res) => {
 }
 
 const getUser = (req, res) => {
-  jwt.verify(req.token, 'secret-key', (err, userData) => {
-    if (err) return responseHelper(res, err, 401, 'Token no autorizado')
-    if (!validatePermission(userData, 'create')) responseHelper(res, [], 401, 'El usuario no cuenta con el permiso para ACTUALIZAR')
-
-    const { id } = req.params
-    if (id !== '') {
-      User.find({ _id: id })
-        .then(response => {
-          if (response === null) {
-            responseHelper(res)
-          }
-          responseHelper(res, response)
-        })
-        .catch(err => res.status(404).json(err))
-    }
-  })
+  const { id } = req.params
+  if (id !== '') {
+    User.find({ _id: id })
+      .then(response => {
+        if (response === null) {
+          responseHelper(res)
+        }
+        responseHelper(res, response)
+      })
+      .catch(err => res.status(404).json(err))
+  }
 }
 
 const getUsers = (req, res) => {
-  jwt.verify(req.token, 'secret-key', (err, userData) => {
-    if (err) return responseHelper(res, err, 401, 'Token no autorizado')
-    if (!validatePermission(userData, 'create')) responseHelper(res, [], 401, 'El usuario no cuenta con el permiso para ACTUALIZAR')
-
-    User.find()
-      .then(response => responseHelper(res, response))
-      .catch(err => res.status(400).json(err))
-  })
+  User.find()
+    .then(response => responseHelper(res, response))
+    .catch(err => res.status(400).json(err))
 }
 
 const createUser = (req, res) => {

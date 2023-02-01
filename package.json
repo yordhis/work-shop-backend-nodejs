@@ -2,10 +2,10 @@
   "name": "stock-api",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/app.js",
+  "main": "./app/app.js",
   "scripts": {
-    "start": "nodemon ./src/app.js",
-    "build": "node src/app.js",
+    "start": "nodemon ./app/app.js",
+    "build": "node app/app.js",
     "test": "mocha ./testing/users.test.js --exit"
   },
   "keywords": [],

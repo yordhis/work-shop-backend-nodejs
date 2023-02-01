@@ -1,11 +1,11 @@
 const express = require('express')
 const dataValidation = require('../../middlewares/dataValidation')
-const verifyToken = require('./middlewares/verifyToken')
+const { verifyToken } = require('./middlewares/verifyToken')
 const verifyPermission = require('./middlewares/verifyPemission')
 const { getUser, getUsers, createUser, updateUser, deleteUser, register, login } = require('./userController')
 const router = express.Router()
 
-const middlewares = [verifyToken.verifyToken, verifyPermission, dataValidation]
+const middlewares = [verifyToken, verifyPermission, dataValidation]
 
 router.get('/', middlewares, getUsers)
 router.get('/:id', middlewares, getUser)
