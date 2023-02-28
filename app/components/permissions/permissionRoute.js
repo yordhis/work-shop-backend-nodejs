@@ -11,7 +11,7 @@ const middlewares = [verifyToken, verifyPemission, dataValidation]
 
 router.get('/', middlewares, getPermissions)
 router.get('/:id', middlewares, getPermission)
-router.post('/create', middlewares, createPermission)
+router.post('/create',  createPermission)
 router.put('/update/:id', middlewares, updatePermission)
 router.delete('/delete/:id', middlewares, deletePermission)
 

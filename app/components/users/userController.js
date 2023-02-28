@@ -60,6 +60,8 @@ const getUsers = (req, res) => {
 
 const createUser = (req, res) => {
   const data = req.body
+  console.log(data)
+  return
   data.password = bcrypt.hashSync(data.password, 10)
   const user = new User(data)
   user.save()

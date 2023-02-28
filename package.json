@@ -6,7 +6,9 @@
   "scripts": {
     "start": "nodemon ./app/app.js",
     "build": "node app/app.js",
-    "test": "mocha ./testing/users.test.js --exit"
+    "test-rols": "mocha ./app/components/rols/rol.test.js --exit",
+    "test-permissions": "mocha ./app/components/permissions/permission.test.js --exit",
+    "test-rolpermissions": "mocha ./app/components/rolpermission/rolpermissions.test.js --exit"
   },
   "keywords": [],
   "author": "",

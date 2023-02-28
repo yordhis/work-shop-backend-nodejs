@@ -20,5 +20,7 @@ app.use(router)
 app.use(notFound, errorHandling)
 
 app.listen(app.get('port'), () => {
-  console.log(`Nuestra app: ${app.get('title')}, esta corriendo en: http://${app.get('host')}:${app.get('port')}`)
+  console.log(`Nuestra app: ${app.get('title')}, esta corriendo en: ${app.get('host')}:${app.get('port')}`)
 })
+
+module.exports =  app
