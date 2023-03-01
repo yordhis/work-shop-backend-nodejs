@@ -1,11 +1,12 @@
 const express = require('express')
 const dataValidation = require('../../middlewares/dataValidation')
 const { verifyToken } = require('./middlewares/verifyToken')
+const verifyRol = require('./middlewares/verifyRol')
 const verifyPermission = require('./middlewares/verifyPemission')
-const { getUser, getUsers, createUser, updateUser, deleteUser, register, login } = require('./userController')
+const { getUser, getUsers, createUser, updateUser, deleteUser, register, login, signout } = require('./userController')
 const router = express.Router()
 
-const middlewares = [verifyToken, verifyPermission, dataValidation]
+const middlewares = [verifyToken, verifyRol, verifyPermission, dataValidation]
 
 router.get('/', middlewares, getUsers)
 router.get('/:id', middlewares, getUser)
@@ -15,5 +16,6 @@ router.delete('/delete/:id', middlewares, deleteUser)
 
 router.post('/register', register)
 router.post('/login', login)
+router.delete('/signout', signout)
 
 module.exports = router

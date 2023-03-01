@@ -6,13 +6,17 @@ const { getPermissions, getPermission, createPermission, updatePermission, delet
 const { verifyToken } = require('../users/middlewares/verifyToken')
 const verifyPemission = require('../users/middlewares/verifyPemission')
 const dataValidation = require('../../middlewares/dataValidation')
+const verifyRol = require('../rols/middlewares/verifyRol')
 
-const middlewares = [verifyToken, verifyPemission, dataValidation]
+const middlewares = [verifyToken, verifyRol, verifyPemission, dataValidation]
 
 router.get('/', middlewares, getPermissions)
 router.get('/:id', middlewares, getPermission)
-router.post('/create',  createPermission)
+router.post('/create', middlewares, createPermission)
 router.put('/update/:id', middlewares, updatePermission)
 router.delete('/delete/:id', middlewares, deletePermission)
+
+//test
+router.post('/create-test',  createPermission)
 
 module.exports = router

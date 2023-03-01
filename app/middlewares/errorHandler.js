@@ -10,6 +10,7 @@ const notFound = (req, res, next) => {
 }
 
 const errorHandling = (err, req, res, next) => {
+  console.log("Error en el servidor")
   const status = err.status === undefined ? 500 : err.status
   res.status(status)
   res.json(err)

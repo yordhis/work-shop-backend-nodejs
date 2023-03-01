@@ -4,6 +4,7 @@ const responseHelper = require('../../helpers/responseHelper')
 const bcrypt = require('bcrypt')
 const createHttpError = require('http-errors')
 const jwt = require('jsonwebtoken')
+const { token } = require('../../constants/secretkey')
 
 const register = (req, res) => {
   const data = req.body
@@ -23,7 +24,7 @@ const login = (req, res) => {
       if (responseLogin) {
         const username = responseLogin.name === undefined ? responseLogin.email.split('@')[0] : responseLogin.name
         if (bcrypt.compareSync(password, responseLogin.password)) {
-          jwt.sign({ user: responseLogin }, 'secret-key', (err, token) => {
+          jwt.sign({ user: responseLogin }, token.key, { expiresIn: token.expiresIn } , (err, token) => {
             if (err === null) {
               responseHelper(res, token, 200, `Bienvenido a Cyber Stock ${username}`)
             }
@@ -36,6 +37,17 @@ const login = (req, res) => {
       }
     })
     .catch(err => createHttpError(404, err))
+}
+
+const signout = (req, res) => {
+  const authToken = req.headers.authorization
+  jwt.sign(authToken, "", { expiresIn: 1 }, (logout, err) =>{
+    if(logout){
+      responseHelper(res, [], 200, 'Has sido desconectado')
+    }else{
+      responseHelper(res, [], 404, 'Error de desconexión')
+    }
+  })
 }
 
 const getUser = (req, res) => {
@@ -60,8 +72,6 @@ const getUsers = (req, res) => {
 
 const createUser = (req, res) => {
   const data = req.body
-  console.log(data)
-  return
   data.password = bcrypt.hashSync(data.password, 10)
   const user = new User(data)
   user.save()
@@ -109,5 +119,6 @@ module.exports = {
   updateUser,
   deleteUser,
   register,
-  login
+  login,
+  signout
 }

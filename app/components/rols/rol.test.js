@@ -14,7 +14,7 @@ describe('Post Rols', ()=>{
     it('Debe devolver un mensaje: El Rol se creó correctamente', (done)=>{
      
             request(app)
-            .post('/rols/create')
+            .post('/rols/create-test')
             .send(rol) // Aqui enviamos los datos a la ruta
             .expect(201)
             .end(done)

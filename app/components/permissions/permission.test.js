@@ -15,7 +15,7 @@ describe('Post Permission', ()=>{
         it('Debe devolver un Estatus: 201', (done)=>{
                  
             request(app)
-            .post('/permissions/create')
+            .post('/permissions/create-test')
             .send(permission) // Aqui enviamos los datos a la ruta
             .expect(201)
             .end(done)

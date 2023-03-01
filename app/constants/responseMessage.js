@@ -4,5 +4,10 @@ module.exports = {
     201: 'CREATED SUCCESSFULLY',
     404: 'NOT FOUNT',
     500: 'ERROR DE SERVIDOR'
+  },
+  responseJson:{
+    status: 200,
+    data:[],
+    message: ""
   }
 }

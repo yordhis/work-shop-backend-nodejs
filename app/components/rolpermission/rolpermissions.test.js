@@ -19,7 +19,7 @@ describe('Post Rol-Permission', ()=>{
     it('Debe devolver un Estatus: 201', (done)=>{
      
             request(app)
-            .post('/rolpermissions/create')
+            .post('/rolpermissions/create-test')
             .send(rolpermission) // Aqui enviamos los datos a la ruta
             .expect(201)
             .end(done)
