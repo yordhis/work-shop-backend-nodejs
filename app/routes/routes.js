@@ -1,13 +1,13 @@
 const express = require('express')
 const userRoute = require('../components/users/userRoute')
 const rolRoute = require('../components/rols/rolRoute')
-const permissionRoute = require('../components/permissions/permissionRoute')
-const rolpermissionRoute = require('../components/rolpermission/rolpermissionRoute')
+const { getLogin } = require('../components/users/userController')
+const pagesRoute = require('../components/pages/pagesRoute')
 const router = express.Router()
 
-router.use('/admin/rols', rolRoute)
-router.use('/admin/users', userRoute)
-router.use('/admin/permissions', permissionRoute)
-router.use('/admin/rolpermissions', rolpermissionRoute)
+router.get('/', getLogin)
+router.use('/pages', pagesRoute)
+router.use('/rols', rolRoute)
+router.use('/users', userRoute)
 
 module.exports = router

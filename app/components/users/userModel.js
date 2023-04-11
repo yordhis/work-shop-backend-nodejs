@@ -1,14 +1,13 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const { SMALLINT, STRING } = require("sequelize");
+const sequelize = require("../../config/mariadb");
 
-const userSchema = new Schema({
-  name: String,
-  email: String,
-  password: String,
-  rol: String,
-  company: String
-})
+const User = sequelize.define('User',{
+  id: {type: SMALLINT, primaryKey: true, autoIncrement: true },
+  username: STRING,
+  password: STRING,
+  rol: STRING 
+});
 
-const User = mongoose.model('User', userSchema)
+module.exports = User;
 
-module.exports = User
+

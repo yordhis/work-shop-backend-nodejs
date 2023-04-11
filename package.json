@@ -4,7 +4,7 @@
   "description": "",
   "main": "./app/app.js",
   "scripts": {
-    "start": "nodemon ./app/app.js",
+    "dev": "nodemon ./app/app.js",
     "build": "node app/app.js",
     "test-rols": "mocha ./app/components/rols/rol.test.js --exit",
     "test-permissions": "mocha ./app/components/permissions/permission.test.js --exit",
@@ -26,10 +26,13 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
+    "mariadb": "^3.1.1",
     "mongoose": "^6.8.4",
+    "sequelize": "^6.30.0",
     "socket.io": "^4.5.4"
   }
 }
